@@ -36,6 +36,7 @@ class PostModel(models.Model):
     tag = models.ManyToManyField(PostTagModel, related_name='posts', verbose_name=_('tag'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
 
+    
 
 
     def __str__(self):
