@@ -1,23 +1,17 @@
 {% load static %}
-<!-- Page Preloder -->
-<div id="preloder">
-    <div class="loader"></div>
-</div>
-
 <!-- Offcanvas Menu Begin -->
 <div class="offcanvas-menu-overlay"></div>
 <div class="offcanvas-menu-wrapper">
     <div class="offcanvas__option">
         <div class="offcanvas__links">
             <a href="#">Sign in</a>
-            <a href="#">FAQs</a>
         </div>
         <div class="offcanvas__top__hover">
-            <span>Usd <i class="arrow_carrot-down"></i></span>
+            <span>EN <i class="arrow_carrot-down"></i></span>
             <ul>
-                <li>USD</li>
-                <li>EUR</li>
-                <li>USD</li>
+                <li>EN</li>
+                <li>UZ</li>
+                <li>RU</li>
             </ul>
         </div>
     </div>
@@ -29,7 +23,6 @@
     </div>
     <div id="mobile-menu-wrap"></div>
     <div class="offcanvas__text">
-        <p>Free shipping, 30-day return or refund guarantee.</p>
     </div>
 </div>
 <!-- Offcanvas Menu End -->
@@ -49,7 +42,7 @@
                             <a href="#">Sign in</a>
                         </div>
                         <div class="header__top__hover">
-                            <span>EN<i class="arrow_carrot-down"></i></span>
+                            <span>EN <i class="arrow_carrot-down"></i></span>
                             <ul>
                                 <li>EN</li>
                                 <li>UZ</li>
@@ -71,10 +64,10 @@
             <div class="col-lg-6 col-md-6">
                 <nav class="header__menu mobile-menu">
                     <ul>
-                        <li class="active"><a href="{% url 'pages:home' %}">Home</a></li>
-                        <li><a href="./shop.html">Shop</a></li>
-                        <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="{% url 'pages:contact' %}">Contacts</a></li>
+                        <li class="{% if request.path == '/' %}active{% endif %}"><a href="{% url 'pages:home' %}">Home</a></li>
+                        <li class="{% if request.path == '/shop/' %}active{% endif %}"><a href="#">Shop</a></li>
+                        <li class="{% if request.path == '/blog/' %}active{% endif %}"><a href="{% url 'blogs:posts' %}">Blog</a></li>
+                        <li class="{% if request.path == '/contact/' %}active{% endif %}"><a href="{% url 'pages:contact' %}">Contacts</a></li>
                     </ul>
                 </nav>
             </div>
@@ -90,4 +83,3 @@
         <div class="canvas__open"><i class="fa fa-bars"></i></div>
     </div>
 </header>
-<!-- Header Section End -->
