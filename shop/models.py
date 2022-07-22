@@ -42,7 +42,7 @@ class ProductModel(models.Model):
     category = models.ForeignKey(
         CategoryModel, 
         on_delete=models.RESTRICT, 
-        related_name='products', 
+        related_name='products',
         verbose_name=_('category')
     )
     tags = models.ManyToManyField(
