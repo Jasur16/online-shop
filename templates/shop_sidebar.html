@@ -1,8 +1,8 @@
 {% load static %}
 <div class="shop__sidebar">
     <div class="shop__sidebar__search">
-        <form action="#">
-            <input type="text" placeholder="Search...">
+        <form action="{% url 'shop:home' %}" method="get">
+            <input name="search" value="{{ request.GET.search }}" type="text" placeholder="Search...">
             <button type="submit"><span class="icon_search"></span></button>
         </form>
     </div>
