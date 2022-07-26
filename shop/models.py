@@ -1,4 +1,3 @@
-from unicodedata import decimal
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -30,6 +29,41 @@ class ProductTagModel(models.Model):
         verbose_name_plural = 'tags'
 
 
+class BrandTagModel(models.Model):
+    name = models.CharField(max_length=60, verbose_name=_('name'))
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'brand'
+        verbose_name_plural = 'brands'
+
+
+class SizeTagModel(models.Model):
+    name = models.CharField(max_length=60, verbose_name=_('name'))
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'size'
+        verbose_name_plural = 'sizes'
+
+
+class ColorTagModel(models.Model):
+    code = models.CharField(max_length=60, verbose_name=_('name'))
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'color'
+        verbose_name_plural = 'colors'
+
 
 class ProductModel(models.Model):
     title = models.CharField(max_length=60, verbose_name=_('title'))
@@ -49,6 +83,26 @@ class ProductModel(models.Model):
         ProductTagModel,
         related_name='products',
         verbose_name=_('tags')
+    )
+
+    sizes = models.ManyToManyField(
+        SizeTagModel,
+        related_name='products',
+        verbose_name=_('size')
+    )
+
+    colors = models.ManyToManyField(
+        ColorTagModel,
+        related_name='products',
+        verbose_name=_('colors')
+    )
+
+    brands = models.ForeignKey(
+        BrandTagModel,
+        on_delete=models.RESTRICT,
+        related_name='products',
+        verbose_name=_('brands'),
+        null=True
     )
 
     def get_price(self):
