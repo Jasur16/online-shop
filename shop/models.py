@@ -1,13 +1,14 @@
+import decimal
+
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
-
 class CategoryModel(models.Model):
     name = models.CharField(max_length=60, verbose_name=_('name'))
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
 
     def __str__(self):
         return self.name
@@ -19,7 +20,7 @@ class CategoryModel(models.Model):
 
 class ProductTagModel(models.Model):
     name = models.CharField(max_length=60, verbose_name=_('name'))
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
 
     def __str__(self):
         return self.name
@@ -29,9 +30,9 @@ class ProductTagModel(models.Model):
         verbose_name_plural = 'tags'
 
 
-class BrandTagModel(models.Model):
+class BrandModel(models.Model):
     name = models.CharField(max_length=60, verbose_name=_('name'))
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
 
     def __str__(self):
         return self.name
@@ -41,9 +42,9 @@ class BrandTagModel(models.Model):
         verbose_name_plural = 'brands'
 
 
-class SizeTagModel(models.Model):
+class SizeModel(models.Model):
     name = models.CharField(max_length=60, verbose_name=_('name'))
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
 
     def __str__(self):
         return self.name
@@ -53,12 +54,12 @@ class SizeTagModel(models.Model):
         verbose_name_plural = 'sizes'
 
 
-class ColorTagModel(models.Model):
+class ColorModel(models.Model):
     code = models.CharField(max_length=60, verbose_name=_('name'))
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
 
     def __str__(self):
-        return self.name
+        return self.code
 
     class Meta:
         verbose_name = 'color'
@@ -71,11 +72,11 @@ class ProductModel(models.Model):
     long_description = RichTextUploadingField(verbose_name=_('long description'))
     price = models.FloatField(verbose_name=_('price'))
     discount = models.PositiveSmallIntegerField(default=0, verbose_name=_('discount'))
-    main_image = models.ImageField(upload_to='products/', verbose_name=_('main_image'))
-    created_at = models.DateTimeField(auto_now_add=True)
+    main_image = models.ImageField(upload_to='products/', verbose_name=_('main image'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
     category = models.ForeignKey(
-        CategoryModel, 
-        on_delete=models.RESTRICT, 
+        CategoryModel,
+        on_delete=models.RESTRICT,
         related_name='products',
         verbose_name=_('category')
     )
@@ -84,40 +85,34 @@ class ProductModel(models.Model):
         related_name='products',
         verbose_name=_('tags')
     )
-
     sizes = models.ManyToManyField(
-        SizeTagModel,
+        SizeModel,
         related_name='products',
-        verbose_name=_('size')
+        verbose_name=_('sizes')
     )
-
     colors = models.ManyToManyField(
-        ColorTagModel,
+        ColorModel,
         related_name='products',
         verbose_name=_('colors')
     )
-
-    brands = models.ForeignKey(
-        BrandTagModel,
+    brand = models.ForeignKey(
+        BrandModel,
         on_delete=models.RESTRICT,
         related_name='products',
-        verbose_name=_('brands'),
+        verbose_name=_('brand'),
         null=True
     )
 
     def get_price(self):
         if self.discount:
             return ((100 - self.discount) / 100) * self.price
-        return self.price 
+        return self.price
 
-    
     def is_discount(self):
         return bool(self.discount)
 
-    
     def new(self):
         return (timezone.now() - self.created_at).days <= 5
-
 
     def __str__(self):
         return self.title
