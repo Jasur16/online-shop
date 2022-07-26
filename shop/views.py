@@ -40,6 +40,7 @@ class ShopView(ListView):
         elif sort == '-price':
             qs = qs.order_by('-price')
 
+
         return qs
 
     def get_context_data(self, *, object_list=None, **kwargs):

@@ -950,6 +950,10 @@ ol {
 	background: #ffffff !important;
 }
 
+.color_active {
+    border: 1px solid black !important;
+}
+
 
 .new-mt{
 	width: 65.83px;
