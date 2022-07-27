@@ -92,7 +92,7 @@
                                 <i class="fa fa-star-o"></i>
                                 <span> - 5 Reviews</span>
                             </div>
-                            <h3>${{ object.get_price }} {% if object.is_discount %}
+                            <h3>${{ object.real_price }} {% if object.is_discount %}
                                 <span>{{ object.price }}</span>{% endif %}</h3>
                             <p>
                                 {{ object.short_description }}
@@ -100,18 +100,19 @@
                             <div class="product__details__option">
                                 <div class="product__details__option__size">
                                     <span>Size:</span>
-                                    {% for size in object.sizes.all%}
-                                    <label for="{{ size.name }}">{{ size.name }}
-                                        <input type="radio" id="{{ size.name }}">
-                                    </label>
+                                    {% for size in object.sizes.all %}
+                                        <label for="{{ size.name }}">{{ size.name }}
+                                            <input type="radio" id="{{ size.name }}">
+                                        </label>
                                     {% endfor %}
+
                                 </div>
                                 <div class="product__details__option__color">
                                     <span>Color:</span>
                                     {% for color in object.colors.all %}
-                                    <label style="background-color: {{ color.code }}" for="{{ color.code }}">
-                                        <input type="radio" id="{{ color.code }}">
-                                    </label>
+                                        <label style="background-color: {{ color.code }}" for="{{ color.code }}">
+                                            <input type="radio" id="{{ color.code }}">
+                                        </label>
                                     {% endfor %}
                                 </div>
                             </div>

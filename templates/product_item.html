@@ -1,15 +1,19 @@
 {% load static %}
 <div class="product__item sale">
-    <div class="product__item__pic set-bg" data-setbg="{{ product.main_image.url }}">
+    <div class="product__item__pic set-bg"
+         data-setbg="{{ product.main_image.url }}">
         {% if product.is_discount %}
-        <span class="label">Sale</span>
+            <span class="label">Sale</span>
         {% endif %}
         {% if product.new %}
-        <span class="label new {% if product.is_discount %}new-mt{% endif %}">New</span>
+            <span class="label new {% if product.is_discount %}new-mt{% endif %}">New</span>
         {% endif %}
         <ul class="product__hover">
-            <li><a href="#"><img src="{% static 'img/icon/heart.png' %}" alt=""></a></li>
-            <li><a href="{% url 'shop:detail' pk=product.pk %}"><img src="{% static 'img/icon/search.png' %}" alt=""></a></li>
+            <li><a href="#"><img src="{% static 'img/icon/heart.png' %}" alt=""></a>
+            </li>
+            <li><a href="{% url 'shop:detail' pk=product.pk %}"><img src="{% static 'img/icon/search.png' %}"
+                                                                     alt=""></a>
+            </li>
         </ul>
     </div>
     <div class="product__item__text">
@@ -22,7 +26,8 @@
             <i class="fa fa-star"></i>
             <i class="fa fa-star-o"></i>
         </div>
-        <h5>${{ product.get_price }} {% if product.is_discount %} <del class="text-secondary">{{ product.price }}</del> {% endif %}</h5>
+        <h5>${{ product.real_price }} {% if product.is_discount %}
+            <del class="text-secondary">{{ product.price }}</del> {% endif %}</h5>
         <div class="product__color__select">
             {% for color in product.colors.all %}
                 <label style="background-color: {{ color.code }}" for="{{ color.code }}">

@@ -1,9 +1,10 @@
 {% load static %}
 <div class="shop__sidebar">
     <div class="shop__sidebar__search">
-        <form action="{% url 'shop:home' %}", method="GET">
+        <form action="{% url 'shop:home' %}" , method="GET">
             <input name="search" value="{{ request.GET.search }}" type="text" placeholder="Search...">
             <button type="submit"><span class="icon_search"></span></button>
+            <a style="color: black" href="{% url 'shop:home' %}">Clear filter</a>
         </form>
     </div>
     <div class="shop__sidebar__accordion">
@@ -18,7 +19,8 @@
                             <ul class="nice-scroll">
                                 {% for cat in categories %}
                                     <li><a onclick="addUrlParameter('cat', {{ cat.pk }})"
-                                        class="{% if request.GET.cat == cat.pk|stringformat:'i' %}text-dark{% endif %}">{{ cat.name }}({{ cat.products.count }})</a></li>
+                                           class="{% if request.GET.cat == cat.pk|stringformat:'i' %}text-dark{% endif %}">{{ cat.name }}
+                                        ({{ cat.products.count }})</a></li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -34,9 +36,9 @@
                         <div class="shop__sidebar__brand">
                             <ul>
                                 {% for brand in brands %}
-                                <li><a onclick="addUrlParameter('brand', {{ brand.pk }})"
-                                class="{% if request.GET.brand == brand.pk|stringformat:'i' %}text-dark{% endif %}"
-                                >{{ brand.name }}</a></li>
+                                    <li><a onclick="addUrlParameter('brand', {{ brand.pk }})"
+                                           class="{% if request.GET.brand == brand.pk|stringformat:'i' %}text-dark{% endif %}">{{ brand.name }}</a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -50,14 +52,7 @@
                 <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                     <div class="card-body">
                         <div class="shop__sidebar__price">
-                            <ul>
-                                <li><a href="#">$0.00 - $50.00</a></li>
-                                <li><a href="#">$50.00 - $100.00</a></li>
-                                <li><a href="#">$100.00 - $150.00</a></li>
-                                <li><a href="#">$150.00 - $200.00</a></li>
-                                <li><a href="#">$200.00 - $250.00</a></li>
-                                <li><a href="#">250.00+</a></li>
-                            </ul>
+                            <input type="text" class="js-range-slider" name="my_range" value="" />
                         </div>
                     </div>
                 </div>
@@ -70,8 +65,10 @@
                     <div class="card-body">
                         <div class="shop__sidebar__tags">
                             {% for size in sizes %}
-                            <a onclick="addUrlParameter('size', {{ size.pk }})" style="{% if request.GET.size == size.pk|stringformat:'i' %}background-color: #000; color: #fff;{% endif %}" >#{{ size.name }}</a>
+                                <a onclick="addUrlParameter('size', {{ size.pk }}) "
+                                   style="{% if request.GET.size == size.pk|stringformat:'i' %}background-color: #000; color: #fff;{% endif %}">#{{ size.name }}</a>
                             {% endfor %}
+
                         </div>
                     </div>
                 </div>
@@ -84,16 +81,17 @@
                     <div class="card-body">
                         <div class="shop__sidebar__color">
                             {% for color in colors %}
-                            <label style="background-color: {{ color.code }}" for="{{ color.code }}">
-                                <input onclick="addUrlParameter('color', {{ color.pk }})" type="radio" id="{{ color.code }}">
-                            </label>
+                                <label style="background-color: {{ color.code }}" for="{{ color.code }}">
+                                    <input onclick="addUrlParameter('color', {{ color.pk }})" type="radio"
+                                           id="{{ color.code }}">
+                                </label>
                             {% endfor %}
+
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card">
-
                 <div class="card-heading">
                     <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
                 </div>
@@ -101,7 +99,8 @@
                     <div class="card-body">
                         <div class="shop__sidebar__tags">
                             {% for tag in tags %}
-                                <a onclick="addUrlParameter('tag', {{ tag.pk }})" style="{% if request.GET.tag == tag.pk|stringformat:'i' %}background-color: #000; color: #fff;{% endif %}" >#{{ tag.name }}</a>
+                                <a onclick="addUrlParameter('tag', {{ tag.pk }}) "
+                                   style="{% if request.GET.tag == tag.pk|stringformat:'i' %}background-color: #000; color: #fff;{% endif %}">#{{ tag.name }}</a>
                             {% endfor %}
                         </div>
                     </div>
